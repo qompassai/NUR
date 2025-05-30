@@ -1,0 +1,16 @@
+{
+  "flakes": [
+    {
+      "from": {
+        "id": "qompassai",
+        "type": "indirect"
+      },
+      "to": {
+        "path": "/home/phaedrus/.config/nix/templates",
+        "type": "path"
+      }
+    }
+  ],
+  "version": 2
+}
+
