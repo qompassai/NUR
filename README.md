@@ -1,4 +1,4 @@
-<!-- /qompassai/nur-packages/README.md -->
+<!-- /qompassai/nur/README.md -->
 
 <!-- Copyright (C) 2025 Qompass AI, All rights reserved -->
 
@@ -6,8 +6,8 @@
 
 <h2> Qompass AI Nix User Repository (NUR) </h2>
 
-![Repository Views](https://komarev.com/ghpvc/?username=qompassai-nur-packages)
-![GitHub all releases](https://img.shields.io/github/downloads/qompassai/nur-packages/total?style=flat-square)
+![Repository Views](https://komarev.com/ghpvc/?username=qompassai-nur)
+![GitHub all releases](https://img.shields.io/github/downloads/qompassai/nur/total?style=flat-square)
 
 <a href="https://github.com/qompassai/nur-packages">
   <img src="https://img.shields.io/github/stars/qompassai/nur-packages?style=for-the-badge&logo=github&label=QompassAI%20NUR&color=003366" alt="QompassAI NUR Stars">
