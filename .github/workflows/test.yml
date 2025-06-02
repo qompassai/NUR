@@ -1,0 +1,23 @@
+# ~/.GH/Qompass/Nur/.github/workflows/test.yml
+# --------------------------------------------
+# Copyright (C) 2025 Qompass AI, All rights reserved
+name: "Test Packages"
+on:
+  push:
+    paths:
+      - "packages/**"
+  pull_request:
+    paths:
+      - "packages/**"
+jobs:
+  test-nvidia-hpc:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Test NVIDIA HPC SDK package
+        run: "# Test package builds\nnix build .#nvidia-hpc-sdk\n\n# Run all tests\nnix build .#nvidia-hpc-sdk.tests.binaries-exist\nnix build .#nvidia-hpc-sdk.tests.version-check  \nnix build .#nvidia-hpc-sdk.tests.c-compile\n"

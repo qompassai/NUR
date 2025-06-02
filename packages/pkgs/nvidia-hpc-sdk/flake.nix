@@ -1,28 +1,35 @@
 # ~/.GH/Qompass/nur/packages/pkgs/nvidia-hpc-sdk/flake.nix
-# --------------------------------------------------------
 # Copyright (C) 2025 Qompass AI, All rights reserved
-
+# --------------------------------------------------------
 {
   description = "NVIDIA HPC SDK - High-performance computing compilers and tools";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    systems.url = "github:nix-systems/default";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-stable,
+    flake-utils,
+    systems,
+  }:
+    flake-utils.lib.eachSystem ["x86_64-linux" "aarch64-linux"] (
+      system: let
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
       in {
         packages = {
-          nvidia-hpc-sdk = pkgs.callPackage ./default.nix { };
+          nvidia-hpc-sdk = pkgs.callPackage ./default.nix {};
           default = self.packages.${system}.nvidia-hpc-sdk;
         };
-        
+
         apps = {
           nvc = {
             type = "app";
@@ -50,10 +57,10 @@
           };
           default = self.apps.${system}.nvc;
         };
-        
+
         devShells.default = pkgs.mkShell {
-          inputsFrom = [ self.packages.${system}.nvidia-hpc-sdk ];
-          packages = with pkgs; [ cmake pkg-config git ];
+          inputsFrom = [self.packages.${system}.nvidia-hpc-sdk];
+          packages = with pkgs; [cmake pkg-config git];
           shellHook = ''
             echo "NVIDIA HPC SDK development environment"
             echo "Available compilers: nvc, nvc++, nvfortran, nvcc"
@@ -61,28 +68,25 @@
           '';
         };
 
-        # Add checks for testing
         checks = {
-          nvidia-hpc-sdk-test = pkgs.runCommand "nvidia-hpc-sdk-test" {
-            nativeBuildInputs = [ self.packages.${system}.nvidia-hpc-sdk ];
-          } ''
-            # Test that compilers exist and are executable
-            test -x ${self.packages.${system}.nvidia-hpc-sdk}/bin/nvc
-            test -x ${self.packages.${system}.nvidia-hpc-sdk}/bin/nvcc
-            touch $out
-          '';
+          nvidia-hpc-sdk-test =
+            pkgs.runCommand "nvidia-hpc-sdk-test" {
+              nativeBuildInputs = [self.packages.${system}.nvidia-hpc-sdk];
+            } ''
+              test -x ${self.packages.${system}.nvidia-hpc-sdk}/bin/nvc
+              test -x ${self.packages.${system}.nvidia-hpc-sdk}/bin/nvcc
+              touch $out
+            '';
         };
 
-        # Add formatter
         formatter = pkgs.alejandra;
       }
-    ) // {
-      # Top-level outputs (outside eachSystem)
+    )
+    // {
       overlays.default = final: prev: {
-        nvidia-hpc-sdk = final.callPackage ./default.nix { };
+        nvidia-hpc-sdk = final.callPackage ./default.nix {};
       };
 
-      # Add templates for project scaffolding
       templates = {
         cuda-project = {
           path = ./templates/cuda-project;
@@ -96,24 +100,30 @@
       };
 
       nixosModules = {
-        nvidia-hpc-sdk = { config, lib, pkgs, ... }: with lib; {
-          options.programs.nvidia-hpc-sdk = {
-            enable = mkEnableOption "NVIDIA HPC SDK";
-            package = mkOption {
-              type = types.package;
-              default = self.packages.${pkgs.system}.nvidia-hpc-sdk;
-              description = "The NVIDIA HPC SDK package to use";
+        nvidia-hpc-sdk = {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+          with lib; {
+            options.programs.nvidia-hpc-sdk = {
+              enable = mkEnableOption "NVIDIA HPC SDK";
+              package = mkOption {
+                type = types.package;
+                default = self.packages.${pkgs.system}.nvidia-hpc-sdk;
+                description = "The NVIDIA HPC SDK package to use";
+              };
+            };
+
+            config = mkIf config.programs.nvidia-hpc-sdk.enable {
+              environment.systemPackages = [config.programs.nvidia-hpc-sdk.package];
+              environment.variables = {
+                NVHPC_ROOT = "${config.programs.nvidia-hpc-sdk.package}";
+                CUDA_ROOT = "${config.programs.nvidia-hpc-sdk.package}/cuda";
+              };
             };
           };
-          
-          config = mkIf config.programs.nvidia-hpc-sdk.enable {
-            environment.systemPackages = [ config.programs.nvidia-hpc-sdk.package ];
-            environment.variables = {
-              NVHPC_ROOT = "${config.programs.nvidia-hpc-sdk.package}";
-              CUDA_ROOT = "${config.programs.nvidia-hpc-sdk.package}/cuda";
-            };
-          };
-        };
         default = self.nixosModules.nvidia-hpc-sdk;
       };
     };
