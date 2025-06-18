@@ -1,6 +1,8 @@
 # ~/.map/Nur/.gitignore
 # ---------------------
 # Copyright (C) 2025 Qompass AI, All rights reserved
-
+.direnv
+.devenv
 result
 result-*
+*.qcow2

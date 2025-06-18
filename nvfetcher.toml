@@ -1,0 +1,31 @@
+# ~/.map/Nur/nvfetcher.toml
+# -------------------------
+# Copyright (C) 2025 Qompass AI, All rights reserved
+
+# ~/.map/Nur/nvfetcher.toml
+# nvfetcher configuration for your NUR
+
+[nvidia-hpc-sdk]
+src.manual = "25.5"
+fetch.url = "https://developer.download.nvidia.com/hpc-sdk/25.5/nvhpc_2025_255_Linux_x86_64_cuda_multi.tar.gz"
+
+[nvidia-hpc-sdk-aarch64]
+src.manual = "25.5"
+fetch.url = "https://developer.download.nvidia.com/hpc-sdk/25.5/nvhpc_2025_255_Linux_aarch64_cuda_multi.tar.gz"
+
+[ko]
+src.github = "ko-build/ko"
+fetch.github = "ko-build/ko"
+
+[qjp]
+src.git = "https://github.com/qompassai/qjp" 
+fetch.git = "https://github.com/your-username/qjp"
+
+[neovim]
+src.github = "neovim/neovim"
+fetch.github = "neovim/neovim"
+
+[rust]
+src.github_tag = "rust-lang/rust"
+src.include_regex = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.github = "rust-lang/rust"

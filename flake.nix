@@ -5,7 +5,11 @@
 {
   description = "Qompass AI NUR packages - Deep Tech packages for quantum AI, HPC, and research";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    qjp.url = "github:qompassai/QJP";
+    qjp.inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs = {
     self,
@@ -34,10 +38,12 @@
             nixpkgs-fmt
             nixpkgs-review
             nix-tree
+            nvfetcher
           ];
           shellHook = ''
             echo "🔬 Qompass AI NUR Development Environment"
-            echo "Available packages: qhash, qjp, qrage, qsec, ko, nvidia-hpc-sdk"
+            echo "📦 Core packages: qhash, qrage, qsec, ko, nvidia-hpc-sdk"
+            echo "🚀 QJP available via: nix run github:qompassai/QJP"
           '';
         };
       }
@@ -111,6 +117,7 @@
         path = ./templates/lang/lua;
         description = "Qompass AI Lua template with OpenResty LuaJIT";
       };
+      qjp = qjp;
     };
   };
 }

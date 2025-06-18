@@ -1,0 +1,17 @@
+# ~/.map/Nur/treefmt.toml
+# -----------------------
+# Copyright (C) 2025 Qompass AI, All rights reserved
+
+[formatter.nix]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.shell]
+command = "sh"
+options = ["-eucx", """
+# First shellcheck
+shellcheck --external-sources --source-path=SCRIPTDIR "$@"
+# Then format
+shfmt -i 2 -s -w "$@"
+    """, "--"]
+includes = ["*.sh"]
