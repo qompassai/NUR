@@ -1,7 +1,7 @@
-# ~/.map/Nur/helpers/meta.nix
-# ---------------------------
+# /qompassai/nur/helpers/meta.nix
+# Qompass AI Nur Meta Helper
 # Copyright (C) 2025 Qompass AI, All rights reserved
-# Helper function for generating comprehensive metadata
+####################################################
 let
   makeQompassMeta = {
     name,
@@ -48,7 +48,6 @@ let
     changelog = if changelog != null then changelog 
                 else if homepage != "" then "${homepage}/releases" 
                 else null;
-
     license = with licenses; 
       [ (if proprietaryLicense == "unfree" then unfree else proprietaryLicense) ]
       ++ [ (if qompassLicense == "agpl3Only" then agpl3Only else qompassLicense) ]

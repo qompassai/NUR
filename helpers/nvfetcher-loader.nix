@@ -1,6 +1,7 @@
-# ~/.map/Nur/helpers/nvfetcher-loader.nix
-# ---------------------------------------
+# /qompassai/nur/helpers/nvfetcher-loader.nix
+# Qompass AI NVFetcher Helper
 # Copyright (C) 2025 Qompass AI, All rights reserved
+#####################################################
 {
   pkgs,
   lib,

@@ -1,17 +1,15 @@
-# ~/.map/Nur/packages/pkgs/nv-hpc-aarch64/flake.nix
-# -------------------------------------------------
+# /qompassai/nur/packages/pkgs/nv-hpc-aarch64/flake.nix
+# Qompass AI AARCH64 NV-HPC-SDK 
 # Copyright (C) 2025 Qompass AI, All rights reserved
-
+####################################################
 {
   description = "NVIDIA HPC SDK - aarch64 build";
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
   };
-
   outputs = { self, nixpkgs, nixpkgs-stable, flake-utils, systems, ... }:
     flake-utils.lib.eachSystem ["aarch64-linux"] (system: let
       pkgs = import nixpkgs {
@@ -23,7 +21,6 @@
         nvidia-hpc-sdk = pkgs.callPackage ./default.nix {};
         default = self.packages.${system}.nvidia-hpc-sdk;
       };
-
       apps = {
         nvc = {
           type = "app";
@@ -61,7 +58,6 @@
           echo "NVHPC_ROOT: ${self.packages.${system}.nvidia-hpc-sdk}"
         '';
       };
-
       checks = {
         nvidia-hpc-sdk-test =
           pkgs.runCommand "nvidia-hpc-sdk-test" {
@@ -72,14 +68,12 @@
             touch $out
           '';
       };
-
       formatter = pkgs.alejandra;
     })
     // {
       overlays.default = final: prev: {
         nvidia-hpc-sdk = final.callPackage ./default.nix {};
       };
-
       templates = {
         cuda-project = {
           path = ./templates/cuda-project;
@@ -91,7 +85,6 @@
         };
         default = self.templates.cuda-project;
       };
-
       nixosModules = {
         nvidia-hpc-sdk = {
           config,
@@ -108,7 +101,6 @@
                 description = "The NVIDIA HPC SDK package to use";
               };
             };
-
             config = mkIf config.programs.nvidia-hpc-sdk.enable {
               environment.systemPackages = [config.programs.nvidia-hpc-sdk.package];
               environment.variables = {
@@ -121,4 +113,3 @@
       };
     };
 }
-

@@ -9,7 +9,7 @@
 ![Repository Views](https://komarev.com/ghpvc/?username=qompassai-nur)
 ![GitHub all releases](https://img.shields.io/github/downloads/qompassai/nur/total?style=flat-square)
 
-<a href="https://github.com/qompassai/nur-packages">
+<a href="https://github.com/qompassai/nur">
   <img src="https://img.shields.io/github/stars/qompassai/nur-packages?style=for-the-badge&logo=github&label=QompassAI%20NUR&color=003366" alt="QompassAI NUR Stars">
 </a>
 <br>
@@ -17,13 +17,13 @@
 <a href="https://github.com/nix-community/NUR">
   <img src="https://img.shields.io/badge/NUR-Registered-success?style=flat-square&logo=nixos" alt="NUR Registered">
 </a>
-<a href="https://github.com/qompassai/nur-packages">
+<a href="https://github.com/qompassai/nur">
   <img src="https://img.shields.io/github/last-commit/qompassai/nur-packages?style=flat-square&label=Last%20Update" alt="Last Update">
 </a>
-<a href="https://github.com/qompassai/nur-packages/issues">
+<a href="https://github.com/qompassai/nur/issues">
   <img src="https://img.shields.io/github/issues/qompassai/nur-packages?style=flat-square" alt="Issues">
 </a>
-<a href="https://github.com/qompassai/nur-packages/actions">
+<a href="https://github.com/qompassai/nur/actions">
   <img src="https://img.shields.io/github/actions/workflow/status/qompassai/nur-packages/ci.yml?style=flat-square&label=Build" alt="Build Status">
 </a>
 <br>

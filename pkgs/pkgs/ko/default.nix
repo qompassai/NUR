@@ -47,7 +47,6 @@ stdenv.mkDerivation rec {
     EOF
         chmod +x $out/bin/ko-info
   '';
-
   meta = with lib; {
     description = "KO - Quantum-Safe Cryptography Research Project by Qompass AI";
     homepage = "https://github.com/qompassai/KO";

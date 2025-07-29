@@ -1,13 +1,13 @@
-# ~/.GH/Qompass/nur-packages/packages/qhash/default.nix
-# -----------------------------------------------------
+# /qompassai/nur/packages/qhash/default.nix
+# Qompass AI QHash Default for Nix
 # Copyright (C) 2025 Qompass AI, All rights reserved
+####################################################
 { lib
 , stdenv
 , pkgs
 , coreutils
 , b3sum
 }:
-
 pkgs.writeShellScriptBin "qhash" ''
   #!/usr/bin/env bash
   case "$1" in
@@ -43,4 +43,3 @@ EOF
     platforms = platforms.all;
   };
 })
-

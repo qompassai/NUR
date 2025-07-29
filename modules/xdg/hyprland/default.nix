@@ -1,7 +1,7 @@
-# /qompassai/NixOS/modules/xdg/hyprland/default.nix
+# /qompassai/nur/modules/xdg/hyprland/default.nix
 # Qompass AI Nix Hyprland default
 # Copyright (C) 2025 Qompass AI, All rights reserved
-# ----------------------------------------------------
+####################################################
 {
   config,
   lib,

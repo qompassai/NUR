@@ -1,0 +1,23 @@
+# flakehub-publish-rolling.yml
+# Qompass AI - [Add description here]
+# Copyright (C) 2025 Qompass AI, All rights reserved
+# ----------------------------------------
+name: "Publish every Git push development to FlakeHub"
+on:
+  push:
+    branches:
+      - "development"
+jobs:
+  flakehub-publish:
+    runs-on: "self-hosted"
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: "actions/checkout@main"
+      - uses: "DeterminateSystems/nix-installer-action@main"
+      - uses: "DeterminateSystems/flakehub-push@main"
+        with:
+          name: "qompassai/nur"
+          rolling: true
+          visibility: "public"
